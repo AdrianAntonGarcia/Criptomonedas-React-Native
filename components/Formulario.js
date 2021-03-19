@@ -6,7 +6,7 @@ import axios from 'axios';
 const Formulario = () => {
   const [moneda, setMoneda] = useState('');
   const [criptomoneda, setCriptomoneda] = useState('');
-  const [criptomonedas, setCriptomonedas] = useState('');
+  const [criptomonedas, setCriptomonedas] = useState([]);
 
   useEffect(() => {
     const consultarAPI = async () => {
@@ -18,15 +18,21 @@ const Formulario = () => {
     consultarAPI();
   }, []);
 
+  // Almacena las selecciones del usuario
   const obtenerMoneda = moneda => {
     setMoneda(moneda);
   };
+  const obtenerCriptomoneda = cripto => {
+    setCriptomoneda(cripto);
+  };
+
   return (
     <View>
       <Text style={styles.label}>Moneda</Text>
       <Picker
+        itemStyle={{height: 120}}
         selectedValue={moneda}
-        onValueChange={moneda => obtenerMoneda(moneda)}>
+        onValueChange={coin => obtenerMoneda(coin)}>
         <Picker.Item label="- Seleccione -" value="" />
         <Picker.Item label="Dolar de Estados Unidos" value="USD" />
         <Picker.Item label="Peso Mexicano" value="MXN" />
@@ -34,6 +40,15 @@ const Formulario = () => {
         <Picker.Item label="Libra Esterlina" value="GBP" />
       </Picker>
       <Text style={styles.label}>Criptomoneda</Text>
+      <Picker
+        itemStyle={{height: 120}}
+        selectedValue={criptomoneda}
+        onValueChange={cripto => obtenerCriptomoneda(cripto)}>
+        <Picker.Item label="- Seleccione -" value="" />
+        {criptomonedas.map(({CoinInfo: {Id, Name, FullName}}) => (
+          <Picker.Item key={Id} label={FullName} value={Name} />
+        ))}
+      </Picker>
     </View>
   );
 };
