@@ -8,5 +8,6 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'sort-imports': 'error',
   },
 };
