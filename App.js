@@ -1,4 +1,4 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Cotizacion from './components/Cotizacion';
 import Formulario from './components/Formulario';
@@ -24,7 +24,7 @@ const App = () => {
   }, [consultarAPI, criptomoneda, moneda]);
 
   return (
-    <View style={styles.general}>
+    <ScrollView style={styles.general}>
       <Header />
       <Image
         style={styles.imagen}
@@ -38,9 +38,9 @@ const App = () => {
           setCriptomoneda={setCriptomoneda}
           setConsultarAPI={setConsultarAPI}
         />
-        <Cotizacion resultado={resultado} />
       </View>
-    </View>
+      <Cotizacion resultado={resultado} />
+    </ScrollView>
   );
 };
 
